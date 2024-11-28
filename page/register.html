@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+  
+
+</head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form action="#">
+        <div class="user-details">
+          <div class="column">
+            <div class="input-box">
+              <span class="details">Full Name</span>
+              <input type="text" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input type="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Address</span>
+              <input type="text" placeholder="Enter your address" required>
+            </div>
+            <div class="input-box">
+              <span class="details">House Size Area</span>
+              <input type="text" placeholder="Enter your size area" required>
+            </div>
+          </div>
+          <div class="column">
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="tel" placeholder="Enter your number" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="password" placeholder="Confirm your password" required>
+            </div>
+            <div class="gender-details">
+              <span class="gender-title">Gender</span>
+              <div class="category">
+                <label>
+                  <input type="radio" name="gender" required>
+                  <span class="dot one"></span>
+                  <span class="gender">Male</span>
+                </label>
+                <label>
+                  <input type="radio" name="gender" required>
+                  <span class="dot two"></span>
+                  <span class="gender">Female</span>
+                </label>
+                <label>
+                  <input type="radio" name="gender" required>
+                  <span class="dot three"></span>
+                  <span class="gender">Prefer not to say</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <a href="home.html">
+              <input type="submit" value="Register">
+          </a>
+      </div>     
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+<style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lora", sans-serif;}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('bg.jpg') no-repeat;
+  background-size: cover;
+  
+}
+
+.container {
+  width: 800px;
+  background: transparent;
+  border-radius: 20px; 
+  backdrop-filter: blur(5px);
+  padding: 30px;
+  color: #000000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
+.input-box {
+  flex: 1 1 calc(50% - 10px); 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.input-box span {
+  font-size: 14px;
+  color: #131111;
+
+}
+
+.input-box input {
+  width: 100%;
+  height: 45px;
+  padding: 0 15px 0 40px; 
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.95); 
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-box input:focus {
+  border-color: #080808;
+  box-shadow: 0 0 10px rgba(7, 7, 7, 0.932);
+}
+
+.input-box i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #e6e7ec;
+  font-size: 18px;
+}
+
+.gender-details {
+  margin-top: 15px;
+}
+
+.gender-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #0c0c0c;
+}
+
+.category {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.category label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.category .dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: 2px solid #dde00c;
+  background: rgba(211, 208, 208, 0.85);
+}
+
+.category input {
+  display: none;
+}
+
+.category input:checked + .dot {
+  background: #b7ea66;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button input[type="submit"] {
+  background: linear-gradient(135deg, #ead666, #55a24b);
+  color: #0e0d0d;
+  border: none;
+  width: 150px;
+  height: 45px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s;
+}
+
+.button input[type="submit"]:hover {
+  background: linear-gradient(135deg, #52a24b, #667eea);
+  transform: translateY(-2px);
+}
+
+</style>
+</html>

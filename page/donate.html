@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donations</title>
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>Logo .</p>
+        </div>
+        <div class="nav-content">
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li class="search-item">
+                        <div class="search-container">
+                            <i class="bx bx-search search-icon"></i>
+                            <input type="text" placeholder="Search..." class="search-input">
+                        </div>
+                    </li>
+                    <li><a href="home.html" class="link">HOME</a></li>
+                    <li><a href="adopt.html" class="link">ADOPT</a></li>
+                    <li><a href="donate.html" class="link active">DONATE</a></li>
+                    <li><a href="about.html" class="link">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn white-btn" id="registerBtn" onclick="register()">Sign In</button>
+            </div>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #000; /* กรอบเป็นสีดำ */
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+
+        h1 {
+            margin-bottom: 20px;
+            color:#f44336;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 100%;
+            width: 50%;
+            background: #28a745;
+        }
+
+        .donate-btn {
+            padding: 12px 30px;
+            background: #ffc107;
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .donate-btn:hover {
+            background: #e0a800;
+            transform: scale(1.05);
+        }
+
+        .payment-options {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-evenly;
+            gap: 20px;
+        }
+
+        .payment-options input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* ปรับแต่งป๊อปอัพ */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .close-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .close-btn:hover {
+            background: #d32f2f;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
+    padding: 0 20px; 
+    z-index: 100;
+}
+
+.nav-logo p {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 50px; 
+
+}
+
+.nav-content {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+
+
+.nav-menu ul {
+    display: flex;
+    align-items: center; 
+}
+
+.nav-menu ul li {
+    list-style-type: none;
+    margin: 0 30px; 
+}
+
+.nav-menu ul li .link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    padding-bottom: 15px;
+    transition: border-bottom 0.3s ease;
+}
+
+.link:hover,
+.active {
+    border-bottom: 2px solid #fff;
+}
+
+.nav-button .btn {
+    width: 130px;
+    height: 40px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.nav-button .btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.btn.white-btn {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.nav-menu-btn {
+    display: none;
+}
+
+.nav-menu-btn i {
+    font-size: 25px;
+    color: #fff;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-menu-btn i:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 15px; 
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px; 
+    font-size: 18px; 
+    color: #f7f5f5; 
+}
+
+.search-input {
+    padding: 8px 10px 8px 30px; 
+    border: 1px solid #f5f2f2; 
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    background-color: transparent; 
+    color: #fff; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #89bafa;
+    box-shadow: 0 0 5px rgba(137, 186, 250, 0.5);
+}
+
+
+@media only screen and (max-width: 786px) {
+    .nav-content {
+        flex-direction: column; 
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100px;
+        display: none;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+        height: auto;
+        backdrop-filter: blur(20px);
+        padding: 10px 0;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu-btn {
+        display: block;
+    }
+
+    .nav-menu.responsive {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .nav-logo p {
+        font-size: 20px;
+    }
+
+    .nav-button {
+        justify-content: center;
+    }
+
+    .search-container {
+        margin-right: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Support Our Cause</h1>
+        <p>Help us provide care and shelter for pets in need!</p>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <p>Raised: ฿8,388 / ฿20,000</p>
+
+        <!-- Payment Options -->
+        <div class="payment-options">
+            <label>
+                <input type="radio" name="payment-method" value="token" id="token" /> Token
+            </label>
+            <label>
+                <input type="radio" name="payment-method" value="promptpay" id="promptpay" /> Prompay
+            </label>
+        </div>
+
+        <!-- Donate Button -->
+        <button class="donate-btn" id="donateBtn" onclick="openModal()" disabled>Donate Now</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="donateModal">
+        <div class="modal-content">
+            <h2>ขอบพระคุณสำหรับการ Donate!</h2>
+            <p>ขอให้มีความสุขมากๆ แฟนรักแฟนหลง น้องๆเหล่านี้คงมีความสุขมาก ที่พวกพี่คนสวยช่วยกัน donate ขอบคุณค่า</p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Enable donate button when a payment method is selected
+        const tokenRadio = document.getElementById('token');
+        const promptpayRadio = document.getElementById('promptpay');
+        const donateButton = document.getElementById('donateBtn');
+
+        tokenRadio.addEventListener('change', enableDonateButton);
+        promptpayRadio.addEventListener('change', enableDonateButton);
+
+        function enableDonateButton() {
+            if (tokenRadio.checked || promptpayRadio.checked) {
+                donateButton.disabled = false;
+            } else {
+                donateButton.disabled = true;
+            }
+        }
+
+        function openModal() {
+            const modal = document.getElementById('donateModal');
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('donateModal');
+            modal.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

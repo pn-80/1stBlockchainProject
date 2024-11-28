@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('1.jpg') no-repeat center center/cover;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+            
+        }
+        .nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
+    padding: 0 20px; 
+    z-index: 100;
+}
+
+.nav-logo p {
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 50px; 
+
+}
+
+.nav-content {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+
+
+.nav-menu ul {
+    display: flex;
+    align-items: center; 
+}
+
+.nav-menu ul li {
+    list-style-type: none;
+    margin: 0 30px; 
+}
+
+.nav-menu ul li .link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    padding-bottom: 15px;
+    transition: border-bottom 0.3s ease;
+}
+
+.link:hover,
+.active {
+    border-bottom: 2px solid #fff;
+}
+
+.nav-button .btn {
+    width: 130px;
+    height: 40px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.nav-button .btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.btn.white-btn {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.nav-menu-btn {
+    display: none;
+}
+
+.nav-menu-btn i {
+    font-size: 25px;
+    color: #fff;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-menu-btn i:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 15px; 
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px; 
+    font-size: 18px; 
+    color: #f7f5f5; 
+}
+
+.search-input {
+    padding: 8px 10px 8px 30px; 
+    border: 1px solid #f5f2f2; 
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    background-color: transparent; 
+    color: #fff; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #89bafa;
+    box-shadow: 0 0 5px rgba(137, 186, 250, 0.5);
+}
+
+
+@media only screen and (max-width: 786px) {
+    .nav-content {
+        flex-direction: column; 
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100px;
+        display: none;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.2);
+        width: 100%;
+        height: auto;
+        backdrop-filter: blur(20px);
+        padding: 10px 0;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-menu-btn {
+        display: block;
+    }
+
+    .nav-menu.responsive {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .nav-logo p {
+        font-size: 20px;
+    }
+
+    .nav-button {
+        justify-content: center;
+    }
+
+    .search-container {
+        margin-right: 0;
+    }
+}
+
+h1 {
+    margin-top: 90px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 3.5rem;
+    color: #f3f0f0;
+    animation: fadeInSlide 1.5s ease-in-out, textGlow 2s infinite alternate; 
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px); 
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #f3f0f0, 0 0 15px #f0c3c3;
+    }
+    100% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #1d1616, 0 0 30px #ffbdbd;
+    }
+}
+
+
+        .about-section {
+            background: rgba(0, 0, 0, 0.15); 
+            padding: 40px;
+            border-radius: 10px;
+            border-radius: 15px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+
+        }
+        .about-section:hover {
+        transform: scale(1.02); 
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); 
+    }
+
+        .about-section p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .team {
+            margin-top: 30px;
+        }
+
+        .team h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .team-member {
+            text-align: center;
+            margin: 15px;
+            flex: 1 1 250px;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .team-member h3 {
+    margin-bottom: 5px;
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    text-align: center;
+    color: #000000; 
+    position: relative; 
+    transition: color 0.3s ease; 
+}
+
+.team-member h3::after {
+    content: ''; 
+    position: absolute;
+    bottom: -4px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 3px;
+    background: linear-gradient(90deg, #5fb7ff, #feb47b); 
+    transition: width 0.3s ease; 
+}
+
+.team-member h3:hover {
+    color: #eecf1f; 
+}
+
+.team-member h3:hover::after {
+    width: 100%; 
+}
+
+
+        .team-member p {
+            font-size: 1rem;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-logo">
+            <p>Logo .</p>
+        </div>
+        <div class="nav-content">
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li class="search-item">
+                        <div class="search-container">
+                            <i class="bx bx-search search-icon"></i>
+                            <input type="text" placeholder="Search..." class="search-input">
+                        </div>
+                    </li>
+                    <li><a href="home2.html" class="link">HOME</a></li>
+                    <li><a href="adopt.html" class="link">ADOPT</a></li>
+                    <li><a href="donate.html" class="link">DONATE</a></li>
+                    <li><a href="about.html" class="link">ABOUT US</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn white-btn" id="registerBtn" onclick="register()">Sign Up</button>
+            </div>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>About Us</h1>
+        <div class="about-section">
+            <p>
+                Welcome to our platform, where we are dedicated to improving the lives of stray dogs and cats. Our mission is to create a safe and transparent adoption system that ensures the well-being of every animal.            </p>
+            <p>
+                We track health records, vaccination history, and provide guidance on legal requirements for pet ownership based on home size.            </p>
+        </div>
+
+        <div class="team">
+            <h2>Our Team</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <h3>Pimchanok</h3>
+                    <p>Co-Founder</p>
+                </div>
+                <div class="team-member">
+                    <h3>Pongsapat</h3>
+                    <p>Housekeeper with TOEIC900</p>
+                </div>
+                <div class="team-member">
+                    <h3>Apitsara</h3>
+                    <p>Community Manager</p>
+                </div>
+                <div class="team-member">
+                    <h3>Sansinee</h3>
+                    <p>Grants Officers</p>
+                </div>
+                <div class="team-member">
+                    <h3>Nattapat</h3>
+                    <p>Co-Founder & Vet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            setActiveLink();
+        };
+
+        function setActiveLink() {
+            const links = document.querySelectorAll('.nav-menu .link');
+            const currentUrl = window.location.href;
+
+            links.forEach(link => {
+                if (currentUrl.includes(link.getAttribute('href'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+        function register() {
+        window.location.href = "home.html"; 
+    }
+    </script>
+</body>
+</html>
