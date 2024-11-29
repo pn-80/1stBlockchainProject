@@ -6,36 +6,401 @@
     <title>Home Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.html">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="nav">
-        <div class="nav-logo">
-            <p>Logo .</p>
+  <nav class="nav">
+    <div class="nav-logo">
+        <p>Logo .</p>
+    </div>
+    <div class="nav-content">
+        <div class="nav-menu" id="navMenu">
+            <ul>
+                <li class="search-item">
+                    <div class="search-container">
+                        <i class="bx bx-search search-icon"></i>
+                        <input type="text" placeholder="Search..." class="search-input">
+                    </div>
+                </li>
+                <li><a href="home.html" class="link">HOME</a></li>
+                <li><a href="adopt.html" class="link">ADOPT</a></li>
+                <li><a href="about.html" class="link">ABOUT US</a></li>
+                <li><a href="user.html" class="link"><span id="accountInfo"
+                    style="display:none; margin-left: 10px; font-weight: bold;"></span></a></li>
+            </ul>
         </div>
-        <div class="nav-content">
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li class="search-item">
-                        <div class="search-container">
-                            <i class="bx bx-search search-icon"></i>
-                            <input type="text" placeholder="Search..." class="search-input">
-                        </div>
-                    </li>
-                    <li><a href="home.html" class="link">HOME</a></li>
-                    <li><a href="adopt.html" class="link">ADOPT</a></li>
-                    <li><a href="donate.html" class="link">DONATE</a></li>
-                    <li><a href="about.html" class="link">ABOUT US</a></li>
-                </ul>
-            </div>
-            <div class="nav-button">
-                <button class="btn white-btn" id="registerBtn" onclick="register()">Sign In</button>
-            </div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="registerBtn" onclick="login()">Sign In</button>
+            <button id="logoutBtn" class="material-symbols-outlined" style="display:none;" onclick="logout()">
+              <span class="material-symbols-outlined">logout</span>
+            </button>
         </div>
-        <div class="nav-menu-btn">
-            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
-        </div>
-    </nav>
+    </div>
+    <div class="nav-menu-btn">
+        <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+    </div>
+    <script>
+        let web3;
+        let contract;
+
+        // Custom provider (Ganache or another local provider)
+        const localProvider = new Web3('http://127.0.0.1:7545');
+        const contractAddress = "0x5c9fe8cE5FE50AF82B0fD09D1598DB1BCFE614D6";
+        const contractABI = [
+{
+  "inputs": [],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
+},
+{
+  "anonymous": false,
+  "inputs": [
+    {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "id",
+      "type": "uint256"
+    },
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "breed",
+      "type": "string"
+    },
+    {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "age",
+      "type": "uint256"
+    },
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "health",
+      "type": "string"
+    },
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "image",
+      "type": "string"
+    },
+    {
+      "indexed": false,
+      "internalType": "address",
+      "name": "adopter",
+      "type": "address"
+    },
+    {
+      "indexed": false,
+      "internalType": "bool",
+      "name": "isAdopted",
+      "type": "bool"
+    }
+  ],
+  "name": "PetAdded",
+  "type": "event"
+},
+{
+  "anonymous": false,
+  "inputs": [
+    {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "id",
+      "type": "uint256"
+    },
+    {
+      "indexed": false,
+      "internalType": "address",
+      "name": "adopter",
+      "type": "address"
+    },
+    {
+      "indexed": false,
+      "internalType": "bool",
+      "name": "isAdopted",
+      "type": "bool"
+    }
+  ],
+  "name": "PetAdopted",
+  "type": "event"
+},
+{
+  "inputs": [],
+  "name": "petCount",
+  "outputs": [
+    {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
+},
+{
+  "inputs": [
+    {
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }
+  ],
+  "name": "pets",
+  "outputs": [
+    {
+      "internalType": "uint256",
+      "name": "id",
+      "type": "uint256"
+    },
+    {
+      "internalType": "string",
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "breed",
+      "type": "string"
+    },
+    {
+      "internalType": "uint256",
+      "name": "age",
+      "type": "uint256"
+    },
+    {
+      "internalType": "string",
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "health",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "image",
+      "type": "string"
+    },
+    {
+      "internalType": "address",
+      "name": "adopter",
+      "type": "address"
+    },
+    {
+      "internalType": "bool",
+      "name": "isAdopted",
+      "type": "bool"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
+},
+{
+  "inputs": [
+    {
+      "internalType": "string",
+      "name": "_name",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_breed",
+      "type": "string"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_age",
+      "type": "uint256"
+    },
+    {
+      "internalType": "string",
+      "name": "_gender",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_health",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_image",
+      "type": "string"
+    }
+  ],
+  "name": "addPet",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+},
+{
+  "inputs": [
+    {
+      "internalType": "uint256",
+      "name": "_petId",
+      "type": "uint256"
+    }
+  ],
+  "name": "adoptPet",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+},
+{
+  "inputs": [],
+  "name": "getpetCount",
+  "outputs": [
+    {
+      "internalType": "uint256",
+      "name": "_petCount",
+      "type": "uint256"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
+},
+{
+  "inputs": [
+    {
+      "internalType": "uint256",
+      "name": "_petId",
+      "type": "uint256"
+    }
+  ],
+  "name": "getPetInfo",
+  "outputs": [
+    {
+      "internalType": "string",
+      "name": "_name",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_breed",
+      "type": "string"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_age",
+      "type": "uint256"
+    },
+    {
+      "internalType": "string",
+      "name": "_gender",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_health",
+      "type": "string"
+    },
+    {
+      "internalType": "string",
+      "name": "_image",
+      "type": "string"
+    },
+    {
+      "internalType": "address",
+      "name": "_adopter",
+      "type": "address"
+    },
+    {
+      "internalType": "bool",
+      "name": "_isAdopted",
+      "type": "bool"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
+}
+]
+        
+        web3 = localProvider;
+        contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        // Check if user is already logged in with MetaMask
+        if (localStorage.getItem('userAccount')) {
+            const userAccount = localStorage.getItem('userAccount');
+            console.log('User is already logged in:', userAccount);
+            showLogoutButton();
+        }
+
+        // Login with MetaMask
+        async function login() {
+            if (window.ethereum) {
+                // Set web3 to use MetaMask's provider
+                web3 = new Web3(window.ethereum);
+
+                try {
+                    // Request account access from MetaMask
+                    const accounts = await web3.eth.requestAccounts();
+                    const userAccount = accounts[0];
+
+                    // Save account to localStorage
+                    localStorage.setItem('userAccount', userAccount);
+                    console.log('Logged in as:', userAccount);
+
+                    // Initialize contract with MetaMask provider
+                    contract = new web3.eth.Contract(contractABI, contractAddress);
+
+                    showLogoutButton();
+                } catch (error) {
+                    console.error('User denied account access');
+                }
+            } else {
+                console.log('MetaMask is not installed');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('userAccount');
+            web3 = localProvider;  // Reset to local provider (Ganache)
+            contract = new web3.eth.Contract(contractABI, contractAddress);  // Reinitialize contract with local provider
+            hideLogoutButton();
+            console.log('Logged out');
+        }
+
+        // Show logout button
+        function showLogoutButton() {
+                const userAccount = localStorage.getItem('userAccount');
+
+                // Show logout button and account info
+                document.getElementById('logoutBtn').style.display = 'inline-block';
+                document.getElementById('registerBtn').style.display = 'none';
+
+                const accountInfo = document.getElementById('accountInfo');
+                accountInfo.textContent = `Logged in as: ${userAccount}`;
+                accountInfo.style.display = 'inline';
+            }
+
+        // Hide logout button
+        function hideLogoutButton() {
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('registerBtn').style.display = 'block';
+            document.getElementById('accountInfo').style.display = 'none';
+        }
+    </script>
+</nav>
     <h1 class="title">Guardian Angels</h1>
     <h1 class="title"> for Homeless Pets</h1>
 

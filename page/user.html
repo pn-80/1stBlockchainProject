@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/ethereumjs-util@7.1.2/dist/index.min.js"></script>
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="styles-adopt.css">
+    <link rel="stylesheet" href="styles-user.css">
     <title>Pet Listings</title>
     <nav class="nav">
       <div class="nav-logo">
@@ -414,7 +414,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Adopt A Pet</h1>
+        <h1>Your Pet</h1>
         <div class="pet-list" id="pet-list">
             <!-- Pet list will be populated here -->
         </div>
@@ -423,6 +423,8 @@
     <script>
         // Get the pet list container
         const petListElement = document.getElementById('pet-list');
+        const userAccount = localStorage.getItem('userAccount');
+        console.log("User Account:", userAccount);
 
         // Fetch pet count and display pet data
         contract.methods.getpetCount().call()
@@ -432,9 +434,9 @@
                     // Fetch pet details by ID
                     contract.methods.getPetInfo(i).call()
                         .then(function (pet) {
-                            console.log(pet)
-                            if (pet._isAdopted === false){
-                            const petListElement = document.getElementById('pet-list');
+                            if (pet._adopter.toLowerCase() === userAccount.toLowerCase()){
+                                //console.log(pet);
+                                const petListElement = document.getElementById('pet-list');
                                 const petCard = document.createElement('div');
                                 petCard.classList.add('pet-card');
                                 
@@ -453,13 +455,18 @@
                                 const petDetails = document.createElement('p');
                                 petDetails.innerHTML = `Breed: ${pet._breed}<br>Age: ${pet._age} years<br>Gender: ${pet._gender}<br>Health: ${pet._health}`;
 
-                                // Create the adopt button
                                 const adoptBtn = document.createElement('button');
                                 adoptBtn.classList.add('adopt-btn');
-                                adoptBtn.textContent = 'Adopt';
+                                // Create the adopt button
+                                if (pet._isAdopted === true){
+                                  adoptBtn.textContent = 'Already Adopted';
+                                  adoptBtn.disabled = true;
+                                } else {
+                                  adoptBtn.textContent = 'Adopt';
                                 adoptBtn.onclick = function() {
                                     window.location.href = `adopt2.html?petId=${i}`;
                                 };
+                                }
 
                                 // Append the elements
                                 petInfo.appendChild(petName);
@@ -470,7 +477,7 @@
                                 petCard.appendChild(petInfo);
                                 petListElement.appendChild(petCard);
                                 }
-                            })
+                              })
                             .catch(function (error) {
                                 console.log("Error fetching pet data:", error);
                             });
